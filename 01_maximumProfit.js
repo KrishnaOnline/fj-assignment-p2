@@ -8,9 +8,9 @@ const maxProfit = (time) => {
     let ansDP = Array(time+1).fill(0).map(() => Array(props.length).fill(0));
     for(let t=1; t<=time; t++) {
         for(let i=0; i<buildTimes.length; i++) {
-            if(t>=buildTimes[i]) {
+            if(t >= buildTimes[i]) {
                 let profit = earnings[i]*(t-buildTimes[i]) + dp[t-buildTimes[i]];
-                if(profit>dp[t]) {
+                if(profit > dp[t]) {
                     dp[t] = profit;
                     ansDP[t] = [...ansDP[t-buildTimes[i]]];
                     ansDP[t][i]++;

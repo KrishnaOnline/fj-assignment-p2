@@ -5,15 +5,15 @@ let len = props.length;
 
 // 1) RECURSIVE APPROACH...
 const solve1 = (time, ans) => {
-    if(time<=0) return 0;
+    if(time <= 0) return 0;
     let maxProfit = 0;
     let bestAns = Array(len).fill(0);
     for(let i=0; i<buildTimes.length; i++) {
-        if(time>=buildTimes[i]) {
+        if(time >= buildTimes[i]) {
             let profit = earnings[i]*(time-buildTimes[i]);
             let temp = [...ans];
             let currProfit = profit + solve1(time-buildTimes[i], temp);
-            if(currProfit>maxProfit) {
+            if(currProfit > maxProfit) {
                 maxProfit = currProfit;
                 temp[i]++;
                 bestAns = [...temp];
@@ -36,19 +36,19 @@ const maxProfit1 = (time) => {
 
 // 2) DP - TOP DOWN APPROACH...
 const solve2 = (time, ans, dp, ansDP) => {
-    if(time<=0) return 0;
+    if(time <= 0) return 0;
     if(dp[time]!==-1) {
         ans = [...ansDP[time]];
         return dp[time];
     }
     let maxProfit = 0;
     for(let i=0; i<buildTimes.length; i++) {
-        if(time>=buildTimes[i]) {
+        if(time >= buildTimes[i]) {
             let profit = earnings[i]*(time-buildTimes[i]);
             let currAns = [...ans];
             currAns[i]++;
             let currProfit = profit + solve2(time-buildTimes[i], currAns, dp, ansDP);
-            if(currProfit>maxProfit) {
+            if(currProfit > maxProfit) {
                 maxProfit = currProfit;
                 for(let j=0; j<ans.length; j++) {
                     ans[j] = currAns[j];
@@ -77,9 +77,9 @@ const maxProfit3 = (time) => {
     let ansDP = Array(time+1).fill(0).map(() => Array(len).fill(0));
     for(let t=1; t<=time; t++) {
         for(let i=0; i<buildTimes.length; i++) {
-            if(t>=buildTimes[i]) {
+            if(t >= buildTimes[i]) {
                 let profit = dp[t-buildTimes[i]]+earnings[i]*(t-buildTimes[i]);
-                if(profit>dp[t]) {
+                if(profit > dp[t]) {
                     dp[t] = profit;
                     ansDP[t] = [...ansDP[t-buildTimes[i]]];
                     ansDP[t][i]++;
