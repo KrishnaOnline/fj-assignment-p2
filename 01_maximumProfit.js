@@ -6,25 +6,36 @@ let len = props.length;
 const maxProfit = (time) => {
     let dp = Array(time+1).fill(0);
     let ansDP = Array(time+1).fill(0).map(() => Array(props.length).fill(0));
+    let prof=[], allPoss=[];
     for(let t=1; t<=time; t++) {
         for(let i=0; i<buildTimes.length; i++) {
             if(t >= buildTimes[i]) {
                 let profit = earnings[i]*(t-buildTimes[i]) + dp[t-buildTimes[i]];
-                if(profit > dp[t]) {
+                if(profit >= dp[t]) {
                     dp[t] = profit;
                     ansDP[t] = [...ansDP[t-buildTimes[i]]];
                     ansDP[t][i]++;
+                    prof.push(dp[t]);
+                    allPoss.push(ansDP[t]);
                 }
             }
         }
     }
-    let ans = ansDP[time];
-    console.log("Maximum Profit: $"+dp[time]);
-    let output = "";
-    for(let i=0; i<ans.length; i++) {
-        output += props[i]+":"+ans[i]+" ";
+    let allAns = [];
+    for(let i=0; i<allPoss.length; i++) {
+        if(dp[time]===prof[i]) {
+            allAns.push(allPoss[i]);
+        }
     }
-    console.log(output+"\n");
+
+    console.log("Maximum Profit: $"+dp[time]);
+    // console.log(allAns);
+    for(let i=0; i<allAns.length; i++) {
+        let output = "";
+        props.map((prop, j) => output += `${prop}:${allAns[i][j]} `);
+        console.log(output);
+    }
+    console.log();
     return dp[time];
 }
 
