@@ -33,7 +33,7 @@ const maxProfit = (time) => {
     for(let i=0; i<allAns.length; i++) {
         let output = "";
         props.map((prop, j) => output += `${prop}:${allAns[i][j]} `);
-        console.log(output);
+        console.log(`${i+1}) ${output}`);
     }
     console.log();
     return dp[time];
