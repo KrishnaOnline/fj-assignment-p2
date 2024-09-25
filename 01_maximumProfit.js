@@ -48,3 +48,6 @@ maxProfit(8);
 
 console.log("Test Case: 3");
 maxProfit(13);
+
+console.log("Test Case: 4");
+maxProfit(9);
